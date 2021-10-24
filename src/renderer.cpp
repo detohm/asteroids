@@ -40,3 +40,7 @@ void Renderer::Render() {
   SDL_RenderFillRect(sdlRenderer_, &box);
   SDL_RenderPresent(sdlRenderer_);
 }
+
+void Renderer::UpdateWindowTitle(std::string title) {
+  SDL_SetWindowTitle(sdlWindow_, title.c_str());
+}

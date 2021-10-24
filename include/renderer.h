@@ -1,11 +1,14 @@
 #ifndef RENDERER_H
 #define RENDERER_H
+#include <string>
+
 #include "SDL.h"
 class Renderer {
  public:
   Renderer(const std::size_t screenWidth, const std::size_t screenHeight);
   ~Renderer();
   void Render();
+  void UpdateWindowTitle(std::string title);
 
  private:
   SDL_Window* sdlWindow_;
