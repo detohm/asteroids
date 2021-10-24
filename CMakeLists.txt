@@ -4,9 +4,9 @@ set(CMAKE_CXX_STANDARD 17)
 project(Asteroids)
 
 find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS} include)
+include_directories("include" ${SDL2_INCLUDE_DIRS})
 
-file(GLOB project_srcs src/*.cpp)
+file(GLOB SOURCES "src/*.cpp")
 
-add_executable(Asteroids ${project_srcs})
+add_executable(Asteroids ${SOURCES})
 target_link_libraries(Asteroids ${SDL2_LIBRARIES})

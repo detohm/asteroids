@@ -1,4 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-class Controller {};
+class Controller {
+ public:
+  void HandleInput(bool &running) const;
+};
 #endif
