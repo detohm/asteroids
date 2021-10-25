@@ -9,7 +9,7 @@ class Game {
   Game(std::size_t width, std::size_t height);
   void Run(const Controller& controller, Renderer& renderer,
            const std::size_t msPerFrame);
-  void Update();
+  void Update(double dt);
 
  private:
   Spaceship ship_;

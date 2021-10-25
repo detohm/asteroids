@@ -11,6 +11,9 @@ Renderer::Renderer(const std::size_t screenWidth,
     std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
   }
 
+  // TODO - Experiment on this optimization
+  // SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
+
   sdlWindow_ = SDL_CreateWindow("Asteroids", SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED, screenWidth_,
                                 screenHeight_, SDL_WINDOW_SHOWN);
@@ -30,17 +33,17 @@ Renderer::~Renderer() {
   SDL_DestroyWindow(sdlWindow_);
   SDL_Quit();
 }
-void Renderer::Render() {
-  SDL_Rect box;
-  box.w = 20;
-  box.h = 20;
-  box.x = 50;
-  box.y = 50;
-  SDL_SetRenderDrawColor(sdlRenderer_, 0xFF, 0xCC, 0x00, 0xFF);
-  SDL_RenderFillRect(sdlRenderer_, &box);
-  SDL_RenderPresent(sdlRenderer_);
+
+void Renderer::RenderFrameStart() {
+  SDL_SetRenderDrawColor(sdlRenderer_, 0x0, 0x0, 0x0, 0xFF);
+  if (SDL_RenderClear(sdlRenderer_) < 0) {
+    std::cerr << "RenderClear error: " << SDL_GetError() << "\n";
+  }
 }
+void Renderer::RenderFrameEnd() { SDL_RenderPresent(sdlRenderer_); }
 
 void Renderer::UpdateWindowTitle(std::string title) {
   SDL_SetWindowTitle(sdlWindow_, title.c_str());
 }
+
+SDL_Renderer* Renderer::getSDLRenderer() { return sdlRenderer_; }

@@ -9,6 +9,9 @@ class Renderer {
   ~Renderer();
   void Render();
   void UpdateWindowTitle(std::string title);
+  SDL_Renderer* getSDLRenderer();
+  void RenderFrameStart();
+  void RenderFrameEnd();
 
  private:
   SDL_Window* sdlWindow_;

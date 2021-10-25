@@ -4,7 +4,9 @@ set(CMAKE_CXX_STANDARD 17)
 project(Asteroids)
 
 find_package(SDL2 REQUIRED)
-include_directories("include" ${SDL2_INCLUDE_DIRS})
+include_directories(${SDL2_INCLUDE_DIRS})
+include_directories("include")
+
 
 file(GLOB SOURCES "src/*.cpp")
 
