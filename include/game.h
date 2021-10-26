@@ -15,7 +15,10 @@ class Game {
   void Update(double dt);
 
  private:
+  std::size_t width_;
+  std::size_t height_;
   Spaceship ship_;
   std::vector<Asteroid> asteroid_;  // TODO - refactor to use pool
+  void initAsteroids();
 };
 #endif

@@ -10,19 +10,35 @@
 #include "renderer.h"
 #include "spaceship.h"
 Game::Game(std::size_t width, std::size_t height)
-    : ship_(width, height, width / 2, height / 2){};
+    : ship_(width, height, width / 2, height / 2),
+      width_(width),
+      height_(height){};
+
+void Game::initAsteroids() {
+  std::random_device device;
+  std::mt19937 generator(device());
+  std::uniform_real_distribution<double> distW(0, width_);
+  std::uniform_real_distribution<double> distH(0, height_);
+  double minAsteroidDistance = 200.0;
+  for (int i = 0; i < 5; i++) {
+    double ax = 0;
+    double ay = 0;
+    while (true) {
+      ax = distW(generator);
+      ay = distH(generator);
+      if (sqrt((ax - ship_.X) * (ax - ship_.X) +
+               (ay - ship_.Y) * (ay - ship_.Y)) > minAsteroidDistance) {
+        break;
+      }
+    }
+    asteroid_.emplace_back(Asteroid{ax, ay, Asteroid::Size::Large});
+  }
+}
 
 void Game::Run(const Controller& controller, Renderer& renderer,
                const std::size_t msPerFrame) {
-  // TODO - refactor this asteroid initialization section
-  std::random_device device;
-  std::mt19937 generator(device());
-  std::uniform_real_distribution<double> distW(0, 640);
-  std::uniform_real_distribution<double> distH(0, 480);
-  for (int i = 0; i < 10; i++) {
-    asteroid_.emplace_back(
-        Asteroid{distW(generator), distH(generator), Asteroid::Size::Large});
-  }
+  // init dynamic game objects
+  initAsteroids();
 
   bool running = true;
 
