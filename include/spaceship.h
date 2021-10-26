@@ -19,5 +19,6 @@ class Spaceship : public GameObject {
   double directionX_;
   void setPoints();
   double maneuverability_;
+  bool isAccelarate_;
 };
 #endif

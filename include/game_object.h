@@ -12,5 +12,15 @@ class GameObject {
   double DX;      // direction x
   double DY;      // direction y
   double Radian;  // rotation angle
+
+  double VX{0};  // velocity x
+  double VY{0};  // velocity y
+  double Acceleration{0};
+
+  // base behaviors
+  void WrapBound(std::size_t width, std::size_t height);
+
+  // virtual
+  virtual void Update(double dt) = 0;
 };
 #endif

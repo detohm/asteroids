@@ -13,23 +13,37 @@ Spaceship::Spaceship(std::size_t screenWidth, std::size_t screenHeight,
   maneuverability_ = 0;
   setPoints();
   Radian = -M_PI / 2.0;
+
+  // velocity
+  Acceleration = 180;
+  VX = 0;
+  VY = 0;
+  isAccelarate_ = false;
 }
 
-void Spaceship::Accelerate() {
-  Y = Y + 1;  // TODO
-}
+void Spaceship::Accelerate() { isAccelarate_ = true; }
 
 void Spaceship::Rotate(RotateDirection direction) {
   if (direction == RotateDirection::Clockwise) {
-    maneuverability_ = 6;
+    maneuverability_ = 3;
   } else {
-    maneuverability_ = -6;
+    maneuverability_ = -3;
   }
 }
 
 void Spaceship::Update(double dt) {
   Radian += maneuverability_ * dt;
-  // X += directionX_ * dt;
+
+  if (isAccelarate_) {
+    VX += cos(Radian) * Acceleration * dt;
+    VY += sin(Radian) * Acceleration * dt;
+  }
+  X += VX * dt;
+  Y += VY * dt;
+
+  // wrap
+  WrapBound(screenWidth_, screenHeight_);
+
   setPoints();
 }
 
@@ -45,6 +59,7 @@ void Spaceship::setPoints() {
 
   PXs.emplace_back(-5);
   PYs.emplace_back(-5);
+
   for (int i = 0; i < PXs.size(); i++) {
     double px = cos(Radian) * (PXs[i]) - sin(Radian) * (PYs[i]);
     double py = sin(Radian) * (PXs[i]) + cos(Radian) * (PYs[i]);
