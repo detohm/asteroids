@@ -1,6 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <vector>
+
+#include "asteroid.h"
 #include "controller.h"
 #include "renderer.h"
 #include "spaceship.h"
@@ -13,5 +16,6 @@ class Game {
 
  private:
   Spaceship ship_;
+  std::vector<Asteroid> asteroid_;  // TODO - refactor to use pool
 };
 #endif

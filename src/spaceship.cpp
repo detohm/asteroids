@@ -10,36 +10,42 @@ Spaceship::Spaceship(std::size_t screenWidth, std::size_t screenHeight,
     : screenWidth_(screenWidth), screenHeight_(screenHeight) {
   X = posX;
   Y = posY;
-  maneuverability_ = 0;
-  setPoints();
+  Speed = 0;
+  RotationSpeed = 0;
   Radian = -M_PI / 2.0;
-
-  // velocity
-  Acceleration = 180;
-  VX = 0;
-  VY = 0;
-  isAccelarate_ = false;
+  acceleration_ = 100;
+  isAccelarating_ = false;
+  deceleration_ = 100;
+  maxSpeed_ = 500;
+  setPoints();
 }
 
-void Spaceship::Accelerate() { isAccelarate_ = true; }
+void Spaceship::Accelerate() { isAccelarating_ = true; }
 
 void Spaceship::Rotate(RotateDirection direction) {
   if (direction == RotateDirection::Clockwise) {
-    maneuverability_ = 3;
+    RotationSpeed = 3;
   } else {
-    maneuverability_ = -3;
+    RotationSpeed = -3;
   }
 }
 
 void Spaceship::Update(double dt) {
-  Radian += maneuverability_ * dt;
+  Radian += RotationSpeed * dt;
 
-  if (isAccelarate_) {
-    VX += cos(Radian) * Acceleration * dt;
-    VY += sin(Radian) * Acceleration * dt;
+  if (isAccelarating_) {
+    DX += cos(Radian) * acceleration_ * dt;
+    DY += sin(Radian) * acceleration_ * dt;
   }
-  X += VX * dt;
-  Y += VY * dt;
+
+  Speed = sqrt(DX * DX + DY * DY);
+  if (Speed > maxSpeed_) {
+    DX -= (DX / Speed) * deceleration_ * dt;
+    DY -= (DY / Speed) * deceleration_ * dt;
+  }
+
+  X += DX * dt;
+  Y += DY * dt;
 
   // wrap
   WrapBound(screenWidth_, screenHeight_);

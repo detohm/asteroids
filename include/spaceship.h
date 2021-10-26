@@ -10,15 +10,18 @@ class Spaceship : public GameObject {
   enum class RotateDirection { Clockwise, AntiClockwise };
   void Accelerate();
   void Rotate(RotateDirection direction);
+
   void Update(double dt);
   void Render(Renderer& renderer);
 
  private:
   int screenWidth_;
   int screenHeight_;
-  double directionX_;
   void setPoints();
-  double maneuverability_;
-  bool isAccelarate_;
+
+  bool isAccelarating_;
+  double acceleration_;
+  double maxSpeed_;
+  double deceleration_;
 };
 #endif
