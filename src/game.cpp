@@ -20,7 +20,8 @@ void Game::Run(const Controller& controller, Renderer& renderer,
   std::uniform_real_distribution<double> distW(0, 640);
   std::uniform_real_distribution<double> distH(0, 480);
   for (int i = 0; i < 10; i++) {
-    asteroid_.emplace_back(Asteroid{distW(generator), distH(generator)});
+    asteroid_.emplace_back(
+        Asteroid{distW(generator), distH(generator), Asteroid::Size::Large});
   }
 
   bool running = true;
