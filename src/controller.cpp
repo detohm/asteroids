@@ -11,13 +11,19 @@ void Controller::HandleInput(bool& running, Spaceship& ship) const {
     } else if (e.type == SDL_KEYDOWN) {
       switch (e.key.keysym.sym) {
         case SDLK_UP:
+        case SDLK_w:
           ship.Accelerate();
           break;
         case SDLK_LEFT:
+        case SDLK_a:
           ship.Rotate(Spaceship::RotateDirection::AntiClockwise);
           break;
         case SDLK_RIGHT:
+        case SDLK_d:
           ship.Rotate(Spaceship::RotateDirection::Clockwise);
+          break;
+        case SDLK_SPACE:
+          ship.Shoot();
           break;
       }
     }

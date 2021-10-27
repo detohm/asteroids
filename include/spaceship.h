@@ -1,6 +1,9 @@
 #ifndef SPACESHIP_H
 #define SPACESHIP_H
+#include <vector>
+
 #include "SDL.h"
+#include "bullet.h"
 #include "game_object.h"
 #include "renderer.h"
 class Spaceship : public GameObject {
@@ -10,6 +13,7 @@ class Spaceship : public GameObject {
   enum class RotateDirection { Clockwise, AntiClockwise };
   void Accelerate();
   void Rotate(RotateDirection direction);
+  void Shoot();
 
   void Update(double dt);
   void Render(Renderer& renderer);
@@ -23,5 +27,7 @@ class Spaceship : public GameObject {
   double acceleration_;
   double maxSpeed_;
   double deceleration_;
+
+  std::vector<Bullet> bullets_;
 };
 #endif

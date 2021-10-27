@@ -30,6 +30,8 @@ void Spaceship::Rotate(RotateDirection direction) {
   }
 }
 
+void Spaceship::Shoot() { bullets_.emplace_back(Bullet(X, Y, Radian)); }
+
 void Spaceship::Update(double dt) {
   Radian += RotationSpeed * dt;
 
@@ -51,6 +53,13 @@ void Spaceship::Update(double dt) {
   WrapBound(screenWidth_, screenHeight_);
 
   setPoints();
+
+  // update bullet
+  for (int i = 0; i < bullets_.size(); i++) {
+    bullets_[i].Update(dt);
+  }
+
+  // TODO - remove out of viewpoint bullet from the list
 }
 
 void Spaceship::setPoints() {
@@ -84,5 +93,9 @@ void Spaceship::Render(Renderer& renderer) {
                            PYs[(i + 1) % PYs.size()]) < 0) {
       std::cerr << SDL_GetError() << "\n";
     }
+  }
+
+  for (int i = 0; i < bullets_.size(); i++) {
+    bullets_[i].Render(renderer);
   }
 }
