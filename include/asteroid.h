@@ -3,17 +3,19 @@
 #include "game_object.h"
 class Asteroid : public GameObject {
  public:
-  enum class Size { Small, Medium, Large };
-  Asteroid(double x, double y, Size size);
+  enum class AsteroidSize { Small, Medium, Large };
+  Asteroid(double x, double y, AsteroidSize size);
   void Update(double dt);
   void Render(Renderer& renderer);
+  bool WillBeRemoved = false;
+  AsteroidSize Size() { return size_; }
 
  private:
   void setPoints();
   void setOriginPoints();
   std::vector<double> oPxs_;
   std::vector<double> oPys_;
-  Size size_;
+  AsteroidSize size_;
 };
 
 #endif

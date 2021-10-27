@@ -20,5 +20,7 @@ class Game {
   Spaceship ship_;
   std::vector<Asteroid> asteroid_;  // TODO - refactor to use pool
   void initAsteroids();
+  void detectCollision();
+  void splitAsteroids(Asteroid atr);
 };
 #endif

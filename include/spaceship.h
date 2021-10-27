@@ -18,6 +18,8 @@ class Spaceship : public GameObject {
   void Update(double dt);
   void Render(Renderer& renderer);
 
+  std::vector<Bullet> Bullets;
+
  private:
   int screenWidth_;
   int screenHeight_;
@@ -27,7 +29,5 @@ class Spaceship : public GameObject {
   double acceleration_;
   double maxSpeed_;
   double deceleration_;
-
-  std::vector<Bullet> bullets_;
 };
 #endif

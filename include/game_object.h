@@ -19,6 +19,8 @@ class GameObject {
 
   // base behaviors
   void WrapBound(std::size_t width, std::size_t height);
+  bool Overlaps(GameObject& gObj);
+  bool ContainsPoint(double x, double y);
 
   // virtual
   virtual void Update(double dt) = 0;

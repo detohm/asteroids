@@ -3,11 +3,10 @@
 #include <cmath>
 #include <iostream>
 #include <random>
-Asteroid::Asteroid(double x, double y, Size size) : size_(size) {
+Asteroid::Asteroid(double x, double y, AsteroidSize size) : size_(size) {
   X = x;
   Y = y;
   RotationSpeed = 3;
-  setPoints();
   std::random_device device;
   std::mt19937 generator(device());
 
@@ -29,17 +28,17 @@ void Asteroid::setOriginPoints() {
   std::mt19937 generator(device());
 
   switch (size_) {
-    case Asteroid::Size::Large:
+    case Asteroid::AsteroidSize::Large:
       minSize = 60;
       maxSize = 80;
       points = 24;
       break;
-    case Asteroid::Size::Medium:
+    case Asteroid::AsteroidSize::Medium:
       minSize = 35;
       maxSize = 50;
       points = 16;
       break;
-    case Asteroid::Size::Small:
+    case Asteroid::AsteroidSize::Small:
       minSize = 20;
       maxSize = 25;
       points = 8;
