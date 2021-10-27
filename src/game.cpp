@@ -7,6 +7,7 @@
 #include "SDL.h"
 #include "asteroid.h"
 #include "controller.h"
+#include "hud.h"
 #include "renderer.h"
 #include "spaceship.h"
 Game::Game(std::size_t width, std::size_t height)
@@ -72,6 +73,11 @@ void Game::Run(const Controller& controller, Renderer& renderer,
     for (int i = 0; i < asteroid_.size(); i++) {
       asteroid_[i].Render(renderer);
     }
+
+    // TODO - Exp. on HUD
+    HUD hud;
+    hud.Render(renderer);
+
     renderer.RenderFrameEnd();
     frameCount++;
 
