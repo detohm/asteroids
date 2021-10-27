@@ -75,8 +75,7 @@ void Game::Run(const Controller& controller, Renderer& renderer,
     }
 
     // TODO - Exp. on HUD
-    HUD hud;
-    hud.Render(renderer);
+    hud_.Render(renderer);
 
     renderer.RenderFrameEnd();
     frameCount++;
@@ -105,6 +104,9 @@ void Game::Update(double dt) {
       it++;
     }
   }
+
+  // UI
+  hud_.Update(dt);
 }
 
 void Game::detectCollision() {

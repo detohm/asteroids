@@ -5,6 +5,7 @@
 
 #include "asteroid.h"
 #include "controller.h"
+#include "hud.h"
 #include "renderer.h"
 #include "spaceship.h"
 class Game {
@@ -22,5 +23,8 @@ class Game {
   void initAsteroids();
   void detectCollision();
   void splitAsteroids(Asteroid atr);
+
+  // UI
+  HUD hud_;
 };
 #endif
