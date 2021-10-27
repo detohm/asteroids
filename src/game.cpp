@@ -31,7 +31,8 @@ void Game::initAsteroids() {
         break;
       }
     }
-    asteroid_.emplace_back(Asteroid{ax, ay, Asteroid::AsteroidSize::Large});
+    asteroid_.emplace_back(
+        Asteroid(width_, height_, ax, ay, Asteroid::AsteroidSize::Large));
   }
 }
 
@@ -101,6 +102,16 @@ void Game::Update(double dt) {
 }
 
 void Game::detectCollision() {
+  // detect collision between Spaceship and Asteroids
+  for (int i = 0; i < asteroid_.size(); i++) {
+    if (asteroid_[i].Overlaps(ship_)) {
+      ship_.Hit();
+      splitAsteroids(asteroid_[i]);
+      asteroid_[i].WillBeRemoved = true;
+    }
+  }
+
+  // detect collision between Bullets and Asteroids
   for (int i = 0; i < ship_.Bullets.size(); i++) {
     int size = asteroid_.size();
     for (int j = 0; j < size; j++) {
@@ -119,16 +130,16 @@ void Game::detectCollision() {
 void Game::splitAsteroids(Asteroid atr) {
   if (atr.Size() == Asteroid::AsteroidSize::Large) {
     for (int i = 0; i < 2; i++) {
-      asteroid_.emplace_back(
-          Asteroid(atr.X, atr.Y, Asteroid::AsteroidSize::Medium));
+      asteroid_.emplace_back(Asteroid(width_, height_, atr.X, atr.Y,
+                                      Asteroid::AsteroidSize::Medium));
     }
     return;
   }
 
   if (atr.Size() == Asteroid::AsteroidSize::Medium) {
     for (int i = 0; i < 2; i++) {
-      asteroid_.emplace_back(
-          Asteroid(atr.X, atr.Y, Asteroid::AsteroidSize::Small));
+      asteroid_.emplace_back(Asteroid(width_, height_, atr.X, atr.Y,
+                                      Asteroid::AsteroidSize::Small));
     }
     return;
   }

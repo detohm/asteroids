@@ -34,7 +34,16 @@ void Spaceship::Shoot() {
   Bullets.emplace_back(Bullet(screenWidth_, screenHeight_, X, Y, Radian));
 }
 
+void Spaceship::Hit() { isHit_ = true; }
+
 void Spaceship::Update(double dt) {
+  if (isHit_) {
+    DX = 0;
+    DY = 0;
+    isAccelarating_ = false;
+    isHit_ = false;
+  }
+
   Radian += RotationSpeed * dt;
 
   if (isAccelarating_) {

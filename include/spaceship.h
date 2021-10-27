@@ -14,6 +14,7 @@ class Spaceship : public GameObject {
   void Accelerate();
   void Rotate(RotateDirection direction);
   void Shoot();
+  void Hit();
 
   void Update(double dt);
   void Render(Renderer& renderer);
@@ -29,5 +30,6 @@ class Spaceship : public GameObject {
   double acceleration_;
   double maxSpeed_;
   double deceleration_;
+  bool isHit_;
 };
 #endif

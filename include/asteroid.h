@@ -4,7 +4,8 @@
 class Asteroid : public GameObject {
  public:
   enum class AsteroidSize { Small, Medium, Large };
-  Asteroid(double x, double y, AsteroidSize size);
+  Asteroid(std::size_t screenWidth, std::size_t screenHeight, double x,
+           double y, AsteroidSize size);
   void Update(double dt);
   void Render(Renderer& renderer);
   bool WillBeRemoved = false;
@@ -16,6 +17,8 @@ class Asteroid : public GameObject {
   std::vector<double> oPxs_;
   std::vector<double> oPys_;
   AsteroidSize size_;
+  std::size_t screenWidth_;
+  std::size_t screenHeight_;
 };
 
 #endif

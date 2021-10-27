@@ -3,9 +3,13 @@
 #include <cmath>
 #include <iostream>
 #include <random>
-Asteroid::Asteroid(double x, double y, AsteroidSize size) : size_(size) {
+Asteroid::Asteroid(std::size_t screenWidth, std::size_t screenHeight, double x,
+                   double y, AsteroidSize size)
+    : size_(size) {
   X = x;
   Y = y;
+  screenWidth_ = screenWidth;
+  screenHeight_ = screenHeight;
   RotationSpeed = 3;
   std::random_device device;
   std::mt19937 generator(device());
@@ -65,6 +69,7 @@ void Asteroid::Update(double dt) {
   Y += DY * dt;
 
   setPoints();
+  WrapBound(screenWidth_, screenHeight_);
 }
 
 void Asteroid::setPoints() {
