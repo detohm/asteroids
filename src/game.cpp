@@ -6,14 +6,44 @@
 
 #include "SDL.h"
 #include "asteroid.h"
-#include "controller.h"
 #include "hud.h"
 #include "renderer.h"
 #include "spaceship.h"
-Game::Game(std::size_t width, std::size_t height)
+Game::Game(std::size_t width, std::size_t height, std::size_t msPerFrame,
+           SceneManager manager)
     : ship_(width, height, width / 2, height / 2),
       width_(width),
-      height_(height){};
+      height_(height),
+      lifePoint_(6),
+      score_(0),
+      Scene(manager) {}
+
+void Game::handleInput(bool& running, Spaceship& ship) {
+  SDL_Event e;
+  while (SDL_PollEvent(&e)) {
+    if (e.type == SDL_QUIT) {
+      running = false;
+    } else if (e.type == SDL_KEYDOWN) {
+      switch (e.key.keysym.sym) {
+        case SDLK_UP:
+        case SDLK_w:
+          ship.Accelerate();
+          break;
+        case SDLK_LEFT:
+        case SDLK_a:
+          ship.Rotate(Spaceship::RotateDirection::AntiClockwise);
+          break;
+        case SDLK_RIGHT:
+        case SDLK_d:
+          ship.Rotate(Spaceship::RotateDirection::Clockwise);
+          break;
+        case SDLK_SPACE:
+          ship.Shoot();
+          break;
+      }
+    }
+  }
+}
 
 void Game::initAsteroids() {
   std::random_device device;
@@ -37,8 +67,7 @@ void Game::initAsteroids() {
   }
 }
 
-void Game::Run(const Controller& controller, Renderer& renderer,
-               const std::size_t msPerFrame) {
+void Game::Run(Renderer& renderer) {
   // init dynamic game objects
   initAsteroids();
 
@@ -60,7 +89,7 @@ void Game::Run(const Controller& controller, Renderer& renderer,
     accumulator += frameTime;
 
     // io handler & user update
-    controller.HandleInput(running, ship_);
+    handleInput(running, ship_);
 
     while (accumulator >= dt) {
       Update(dtSecond);
@@ -106,7 +135,7 @@ void Game::Update(double dt) {
   }
 
   // UI
-  hud_.Update(dt);
+  hud_.Update(dt, lifePoint_, score_);
 }
 
 void Game::detectCollision() {
@@ -114,6 +143,8 @@ void Game::detectCollision() {
   for (int i = 0; i < asteroid_.size(); i++) {
     if (asteroid_[i].Overlaps(ship_)) {
       ship_.Hit();
+      if (lifePoint_ > 0) lifePoint_--;
+
       splitAsteroids(asteroid_[i]);
       asteroid_[i].WillBeRemoved = true;
     }
@@ -126,6 +157,8 @@ void Game::detectCollision() {
       if (asteroid_[j].WillBeRemoved) continue;
 
       if (asteroid_[j].Overlaps(ship_.Bullets[i])) {
+        score_ += 10;
+
         splitAsteroids(asteroid_[j]);
 
         ship_.Bullets[i].WillBeRemoved = true;
