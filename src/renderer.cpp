@@ -3,13 +3,20 @@
 #include <iostream>
 
 #include "SDL.h"
+#include "SDL_ttf.h"
+
 Renderer::Renderer(const std::size_t screenWidth,
                    const std::size_t screenHeight)
     : screenWidth_(screenWidth), screenHeight_(screenHeight) {
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-    std::cerr << "SDL could not initialize.\n";
-    std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
-  }
+  // if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+  //   std::cerr << "SDL could not initialize.\n";
+  //   std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
+  // }
+
+  // if (TTF_Init() < 0) {
+  //   std::cerr << "SDL TTF could not initialize.\n";
+  //   std::cerr << "SDL_TTF_Error: " << TTF_GetError() << "\n";
+  // }
 
   // TODO - Experiment on this optimization
   // SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
@@ -30,10 +37,7 @@ Renderer::Renderer(const std::size_t screenWidth,
   }
 }
 
-Renderer::~Renderer() {
-  SDL_DestroyWindow(sdlWindow_);
-  SDL_Quit();
-}
+Renderer::~Renderer() {}
 
 void Renderer::RenderFrameStart() {
   SDL_SetRenderDrawColor(sdlRenderer_, 0x0, 0x0, 0x0, 0xFF);
@@ -48,3 +52,5 @@ void Renderer::UpdateWindowTitle(std::string title) {
 }
 
 SDL_Renderer* Renderer::getSDLRenderer() { return sdlRenderer_; }
+
+void Renderer::Terminate() { SDL_DestroyWindow(sdlWindow_); }

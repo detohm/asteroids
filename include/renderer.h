@@ -13,6 +13,8 @@ class Renderer {
   void RenderFrameStart();
   void RenderFrameEnd();
 
+  void Terminate();
+
  private:
   SDL_Window* sdlWindow_;
   SDL_Renderer* sdlRenderer_;
