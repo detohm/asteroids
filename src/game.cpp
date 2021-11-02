@@ -10,12 +10,23 @@
 #include "renderer.h"
 #include "scene_gameover.h"
 #include "spaceship.h"
-Game::Game(SceneManager& manager)
-    : lifePoint_(3),
-      score_(0),
-      ship_(manager.Width(), manager.Height(), manager.Width() / 2,
-            manager.Height() / 2),
-      Scene(manager) {
+
+Game* Game::game_ = nullptr;
+Game::Game(SceneManager& manager) : Scene(manager) {}
+
+Game* Game::Instance(SceneManager& manager) {
+  // lazy initialisation
+  if (game_ == nullptr) {
+    game_ = new Game(manager);
+  }
+  return game_;
+}
+
+void Game::Init() {
+  lifePoint_ = 3;
+  score_ = 0;
+  ship_.Init(manager_.Width(), manager_.Height(), manager_.Width() / 2.0,
+             manager_.Height() / 2.0);
   initAsteroids();
 }
 

@@ -5,7 +5,20 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
 #include "game.h"
+
+IntroScene* IntroScene::introScene_ = nullptr;
+
 IntroScene::IntroScene(SceneManager& manager) : Scene(manager) {}
+
+IntroScene* IntroScene::Instance(SceneManager& manager) {
+  // lazy initialisation
+  if (introScene_ == nullptr) {
+    introScene_ = new IntroScene(manager);
+  }
+  return introScene_;
+}
+
+void IntroScene::Init() {}
 
 void IntroScene::CleanUp() {}
 
@@ -17,7 +30,7 @@ void IntroScene::HandleInputs() {
     } else if (e.type == SDL_KEYDOWN) {
       switch (e.key.keysym.sym) {
         case SDLK_SPACE:
-          Game* game = new Game(manager_);
+          Game* game = Game::Instance(manager_);
           manager_.Change(game);
           break;
       }

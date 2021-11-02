@@ -7,6 +7,7 @@ class Scene {
  public:
   Scene(SceneManager& manager);
   virtual ~Scene();
+  virtual void Init() = 0;
   virtual void CleanUp() = 0;
 
   virtual void HandleInputs() = 0;

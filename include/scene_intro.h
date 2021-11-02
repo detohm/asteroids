@@ -5,12 +5,19 @@
 
 class IntroScene : public Scene {
  public:
-  IntroScene(SceneManager& manager);
+  static IntroScene* Instance(SceneManager& manager);
+  void Init();
   void CleanUp();
 
   void HandleInputs();
   void Update(double dt);
   void Render();
+
+ protected:
+  IntroScene(SceneManager& manager);
+
+ private:
+  static IntroScene* introScene_;
 };
 
 #endif

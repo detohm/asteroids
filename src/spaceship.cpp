@@ -5,9 +5,12 @@
 
 #include "renderer.h"
 
-Spaceship::Spaceship(std::size_t screenWidth, std::size_t screenHeight,
-                     double posX, double posY)
-    : screenWidth_(screenWidth), screenHeight_(screenHeight) {
+Spaceship::Spaceship() {}
+
+void Spaceship::Init(std::size_t screenWidth, std::size_t screenHeight,
+                     double posX, double posY) {
+  screenWidth_ = screenWidth;
+  screenHeight_ = screenHeight;
   X = posX;
   Y = posY;
   Speed = 0;

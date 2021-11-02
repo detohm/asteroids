@@ -5,6 +5,7 @@
 class GameOverScene : public Scene {
  public:
   GameOverScene(SceneManager& manager);
+  void Init();
   void CleanUp();
 
   void HandleInputs();

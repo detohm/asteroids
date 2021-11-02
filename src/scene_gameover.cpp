@@ -7,6 +7,7 @@
 #include "game.h"
 #include "scene_manager.h"
 GameOverScene::GameOverScene(SceneManager& manager) : Scene(manager) {}
+void GameOverScene::Init() {}
 void GameOverScene::CleanUp() {}
 
 void GameOverScene::HandleInputs() {
@@ -17,7 +18,7 @@ void GameOverScene::HandleInputs() {
     } else if (e.type == SDL_KEYDOWN) {
       switch (e.key.keysym.sym) {
         case SDLK_SPACE:
-          Game* game = new Game(manager_);
+          Game* game = Game::Instance(manager_);
           manager_.Change(game);
           break;
       }

@@ -8,7 +8,8 @@
 #include "renderer.h"
 class Spaceship : public GameObject {
  public:
-  Spaceship(std::size_t screenWidth, std::size_t screenHeight, double posX,
+  Spaceship();
+  void Init(std::size_t screenWidth, std::size_t screenHeight, double posX,
             double posY);
   enum class RotateDirection { Clockwise, AntiClockwise };
   void Accelerate();

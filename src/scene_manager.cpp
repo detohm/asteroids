@@ -30,14 +30,16 @@ void SceneManager::Change(Scene* scene) {
   if (!scenes_.empty()) {
     scenes_.top()->CleanUp();
     // delete scenes_.top();
-    // scenes_.pop();
+    scenes_.pop();
   }
 
   scenes_.push(scene);
+  scenes_.top()->Init();
 }
 void SceneManager::Push(Scene* scene) {
   std::cout << "scene push\n";
   scenes_.push(scene);
+  scenes_.top()->Init();
 }
 void SceneManager::Pop() {
   std::cout << "scene pop\n";

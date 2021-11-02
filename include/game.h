@@ -12,7 +12,9 @@
 #include "spaceship.h"
 class Game : public Scene {
  public:
-  Game(SceneManager& manager);
+  static Game* Instance(SceneManager& manager);
+  void Init();
+
   void CleanUp();
 
   void HandleInputs();
@@ -21,7 +23,12 @@ class Game : public Scene {
 
   int LifePoint() { return lifePoint_; }
 
+ protected:
+  Game(SceneManager& manager);
+
  private:
+  static Game* game_;
+
   Spaceship ship_;
   std::vector<Asteroid> asteroid_;  // TODO - refactor to use pool
   void handleInput(bool& running, Spaceship& ship);
