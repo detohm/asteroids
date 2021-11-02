@@ -6,9 +6,24 @@
 #include "SDL_ttf.h"
 #include "game.h"
 #include "scene_manager.h"
+
+GameOverScene* GameOverScene::gameOverScene_ = nullptr;
 GameOverScene::GameOverScene(SceneManager& manager) : Scene(manager) {}
+
+GameOverScene* GameOverScene::Instance(SceneManager& manager) {
+  // lazy initialisation
+  if (gameOverScene_ == nullptr) {
+    gameOverScene_ = new GameOverScene(manager);
+  }
+
+  return gameOverScene_;
+}
 void GameOverScene::Init() {
-  font_ = TTF_OpenFont("./assets/space-marine.ttf", 16);
+  fontHeader_ = TTF_OpenFont("./assets/space-marine.ttf", 40);
+  if (!fontHeader_) {
+    std::cerr << TTF_GetError() << "\n";
+  }
+  font_ = TTF_OpenFont("./assets/audiowide.ttf", 18);
   if (!font_) {
     std::cerr << TTF_GetError() << "\n";
   }
@@ -36,20 +51,24 @@ void GameOverScene::Render() {
   Renderer& renderer = manager_.GetRenderer();
   renderer.RenderFrameStart();
 
-  SDL_Renderer* sdlRenderer = renderer.getSDLRenderer();
-  std::string text = "gameover";
-
-  SDL_Color white = {255, 255, 255};
-  SDL_Surface* surface = TTF_RenderText_Solid(font_, text.c_str(), white);
-  SDL_Texture* msg = SDL_CreateTextureFromSurface(sdlRenderer, surface);
-  SDL_Rect msgRect;
-  msgRect.x = 10;
-  msgRect.y = 10;
-
-  TTF_SizeText(font_, text.c_str(), &msgRect.w, &msgRect.h);
-  SDL_RenderCopy(sdlRenderer, msg, NULL, &msgRect);
-  SDL_FreeSurface(surface);
-  SDL_DestroyTexture(msg);
+  int bX = 80;
+  SDL_Color yellow = {0xFF, 0xCC, 0x00};
+  renderTextbox("GAME OVER !!!", bX, 120, yellow, fontHeader_);
 
   renderer.RenderFrameEnd();
+}
+
+void GameOverScene::renderTextbox(std::string text, int x, int y,
+                                  SDL_Color color, TTF_Font* font) {
+  SDL_Renderer* sdlRenderer = manager_.GetRenderer().getSDLRenderer();
+  SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
+  SDL_Texture* msg = SDL_CreateTextureFromSurface(sdlRenderer, surface);
+  SDL_Rect msgRect;
+  msgRect.x = x;
+  msgRect.y = y;
+  TTF_SizeText(font, text.c_str(), &msgRect.w, &msgRect.h);
+  SDL_RenderCopy(sdlRenderer, msg, NULL, &msgRect);
+
+  SDL_FreeSurface(surface);
+  SDL_DestroyTexture(msg);
 }

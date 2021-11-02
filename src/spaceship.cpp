@@ -16,10 +16,10 @@ void Spaceship::Init(std::size_t screenWidth, std::size_t screenHeight,
   Speed = 0;
   RotationSpeed = 0;
   Radian = -M_PI / 2.0;
-  acceleration_ = 200;
+  acceleration_ = 300;
   isAccelarating_ = false;
   deceleration_ = 100;
-  maxSpeed_ = 500;
+  maxSpeed_ = 600;
   setPoints();
 }
 
@@ -27,9 +27,9 @@ void Spaceship::Accelerate() { isAccelarating_ = true; }
 
 void Spaceship::Rotate(RotateDirection direction) {
   if (direction == RotateDirection::Clockwise) {
-    RotationSpeed = 3;
+    RotationSpeed = 5;
   } else {
-    RotationSpeed = -3;
+    RotationSpeed = -5;
   }
 }
 

@@ -23,7 +23,7 @@ Game* Game::Instance(SceneManager& manager) {
 }
 
 void Game::Init() {
-  lifePoint_ = 3;
+  lifePoint_ = 1;
   score_ = 0;
   ship_.Init(manager_.Width(), manager_.Height(), manager_.Width() / 2.0,
              manager_.Height() / 2.0);
@@ -96,7 +96,8 @@ void Game::initAsteroids() {
   std::uniform_real_distribution<double> distW(0, manager_.Width());
   std::uniform_real_distribution<double> distH(0, manager_.Height());
   double minAsteroidDistance = 200.0;
-  for (int i = 0; i < 5; i++) {
+  int totalAsteroids = 7;
+  for (int i = 0; i < totalAsteroids; i++) {
     double ax = 0;
     double ay = 0;
     while (true) {
@@ -117,10 +118,10 @@ void Game::detectCollision() {
   for (int i = 0; i < asteroid_.size(); i++) {
     if (asteroid_[i].Overlaps(ship_)) {
       ship_.Hit();
-      if (lifePoint_ > 0) {
+      if (lifePoint_ > 1) {
         lifePoint_--;
       } else {
-        GameOverScene* gameOver = new GameOverScene(manager_);
+        GameOverScene* gameOver = GameOverScene::Instance(manager_);
         manager_.Change(gameOver);
       }
 

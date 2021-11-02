@@ -5,7 +5,7 @@
 #include "scene.h"
 class GameOverScene : public Scene {
  public:
-  GameOverScene(SceneManager& manager);
+  static GameOverScene* Instance(SceneManager& manager);
   void Init();
   void CleanUp();
 
@@ -13,8 +13,16 @@ class GameOverScene : public Scene {
   void Update(double dt);
   void Render();
 
+ protected:
+  GameOverScene(SceneManager& manager);
+
  private:
+  static GameOverScene* gameOverScene_;
+
   TTF_Font* font_;
+  TTF_Font* fontHeader_;
+  void renderTextbox(std::string text, int x, int y, SDL_Color color,
+                     TTF_Font* font);
 };
 
 #endif
