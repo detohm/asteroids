@@ -18,9 +18,15 @@ IntroScene* IntroScene::Instance(SceneManager& manager) {
   return introScene_;
 }
 
-void IntroScene::Init() {}
+void IntroScene::Init() {
+  font_ = TTF_OpenFont("./assets/space-marine.ttf", 16);
+  if (!font_) {
+    std::cerr << TTF_GetError() << "\n";
+  }
+}
 
-void IntroScene::CleanUp() {}
+void IntroScene::CleanUp() { /*TTF_CloseFont(font_);*/
+}
 
 void IntroScene::HandleInputs() {
   SDL_Event e;
@@ -43,11 +49,6 @@ void IntroScene::Render() {
   Renderer& renderer = manager_.GetRenderer();
   renderer.RenderFrameStart();
 
-  TTF_Font* font_ = TTF_OpenFont("./assets/space-marine.ttf", 16);
-  if (!font_) {
-    std::cerr << TTF_GetError() << "\n";
-  }
-
   SDL_Renderer* sdlRenderer = renderer.getSDLRenderer();
   std::string text = "intro";
 
@@ -62,5 +63,6 @@ void IntroScene::Render() {
   SDL_RenderCopy(sdlRenderer, msg, NULL, &msgRect);
   SDL_FreeSurface(surface);
   SDL_DestroyTexture(msg);
+
   renderer.RenderFrameEnd();
 }

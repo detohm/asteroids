@@ -7,7 +7,12 @@
 #include "game.h"
 #include "scene_manager.h"
 GameOverScene::GameOverScene(SceneManager& manager) : Scene(manager) {}
-void GameOverScene::Init() {}
+void GameOverScene::Init() {
+  font_ = TTF_OpenFont("./assets/space-marine.ttf", 16);
+  if (!font_) {
+    std::cerr << TTF_GetError() << "\n";
+  }
+}
 void GameOverScene::CleanUp() {}
 
 void GameOverScene::HandleInputs() {
@@ -31,11 +36,6 @@ void GameOverScene::Render() {
   Renderer& renderer = manager_.GetRenderer();
   renderer.RenderFrameStart();
 
-  TTF_Font* font_ = TTF_OpenFont("./assets/space-marine.ttf", 16);
-  if (!font_) {
-    std::cerr << TTF_GetError() << "\n";
-  }
-
   SDL_Renderer* sdlRenderer = renderer.getSDLRenderer();
   std::string text = "gameover";
 
@@ -50,5 +50,6 @@ void GameOverScene::Render() {
   SDL_RenderCopy(sdlRenderer, msg, NULL, &msgRect);
   SDL_FreeSurface(surface);
   SDL_DestroyTexture(msg);
+
   renderer.RenderFrameEnd();
 }
