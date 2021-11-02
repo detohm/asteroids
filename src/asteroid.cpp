@@ -14,9 +14,10 @@ Asteroid::Asteroid(std::size_t screenWidth, std::size_t screenHeight, double x,
   std::random_device device;
   std::mt19937 generator(device());
 
-  std::uniform_real_distribution<double> distRadian(0, 2.0 * M_PI);
+  std::uniform_real_distribution<double> distRotationSpeed(-5.0, 5.0);
   std::uniform_real_distribution<double> distSpeed(20, 40);
-  Radian = distRadian(generator);
+  Radian = 0;
+  RotationSpeed = distRotationSpeed(generator);
   double initSpeed = distSpeed(generator);
   DX = cos(Radian) * initSpeed;
   DY = sin(Radian) * initSpeed;
