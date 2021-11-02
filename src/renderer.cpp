@@ -7,20 +7,9 @@
 
 Renderer::Renderer(const std::size_t screenWidth,
                    const std::size_t screenHeight)
-    : screenWidth_(screenWidth), screenHeight_(screenHeight) {
-  // if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-  //   std::cerr << "SDL could not initialize.\n";
-  //   std::cerr << "SDL_Error: " << SDL_GetError() << std::endl;
-  // }
+    : screenWidth_(screenWidth), screenHeight_(screenHeight) {}
 
-  // if (TTF_Init() < 0) {
-  //   std::cerr << "SDL TTF could not initialize.\n";
-  //   std::cerr << "SDL_TTF_Error: " << TTF_GetError() << "\n";
-  // }
-
-  // TODO - Experiment on this optimization
-  // SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
-
+void Renderer::Init() {
   sdlWindow_ = SDL_CreateWindow("Asteroids", SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED, screenWidth_,
                                 screenHeight_, SDL_WINDOW_SHOWN);

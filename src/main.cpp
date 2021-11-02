@@ -13,6 +13,8 @@ const std::size_t kScreenHeight = 480;
 int main() {
   Renderer renderer(kScreenWidth, kScreenHeight);
   SceneManager sceneManager(kScreenWidth, kScreenHeight, renderer, kMsPerFrame);
+  renderer.Init();
+
   IntroScene* intro = IntroScene::Instance(sceneManager);
   sceneManager.Push(intro);
   sceneManager.Run();

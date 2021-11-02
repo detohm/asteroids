@@ -6,6 +6,7 @@
 class Renderer {
  public:
   Renderer(const std::size_t screenWidth, const std::size_t screenHeight);
+  void Init();
   ~Renderer();
   void Render();
   void UpdateWindowTitle(std::string title);

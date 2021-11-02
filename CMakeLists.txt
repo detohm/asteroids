@@ -19,4 +19,6 @@ file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 file(GLOB SOURCES "src/*.cpp")
 
 add_executable(Asteroids ${SOURCES})
+
+string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
 target_link_libraries(Asteroids ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
