@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "asteroid.h"
-#include "controller.h"
 #include "hud.h"
 #include "renderer.h"
 #include "scene.h"

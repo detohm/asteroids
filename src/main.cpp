@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "controller.h"
 #include "game.h"
 #include "renderer.h"
 #include "scene_intro.h"
