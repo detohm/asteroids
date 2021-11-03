@@ -1,5 +1,5 @@
 # Asteroids
-This project is a clone of the "Asteroids" game for educational purpose. It provides minimal gameplay.
+This project is a clone of the "Asteroids" game for educational purpose. It provides minimal gameplay. It's built with C++ and SDL2.
 # Features
 This project provides the following features,
 - Player can use Up, Left, Right (arrow keys) to navigate the spaceship.
