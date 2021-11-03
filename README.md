@@ -1,5 +1,10 @@
 # Asteroids
 This project is a clone of the "Asteroids" game for educational purpose. It provides minimal gameplay. It's built with C++ and SDL2.
+# Screenshots
+![Introduction Scene](https://github.com/detohm/asteroids/blob/main/docs/assets/1-intro.png?raw=true)
+![Gameplay Scene](https://github.com/detohm/asteroids/blob/main/docs/assets/2-gameplay.png?raw=true)
+![GameOver Scene](https://github.com/detohm/asteroids/blob/main/docs/assets/3-gameover.png?raw=true)
+
 # Features
 This project provides the following features,
 - Player can use Up, Left, Right (arrow keys) to navigate the spaceship.
