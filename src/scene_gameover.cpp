@@ -10,12 +10,12 @@
 GameOverScene* GameOverScene::gameOverScene_ = nullptr;
 GameOverScene::GameOverScene(SceneManager& manager) : Scene(manager) {}
 
-GameOverScene* GameOverScene::Instance(SceneManager& manager) {
+GameOverScene* GameOverScene::Instance(SceneManager& manager, int score) {
   // lazy initialisation
   if (gameOverScene_ == nullptr) {
     gameOverScene_ = new GameOverScene(manager);
   }
-
+  gameOverScene_->score_ = score;
   return gameOverScene_;
 }
 void GameOverScene::Init() {
@@ -37,7 +37,7 @@ void GameOverScene::HandleInputs() {
       manager_.SceneQuit();
     } else if (e.type == SDL_KEYDOWN) {
       switch (e.key.keysym.sym) {
-        case SDLK_SPACE:
+        case SDLK_p:
           Game* game = Game::Instance(manager_);
           manager_.Change(game);
           break;
@@ -51,10 +51,13 @@ void GameOverScene::Render() {
   Renderer& renderer = manager_.GetRenderer();
   renderer.RenderFrameStart();
 
-  int bX = 80;
+  int bX = 70;
   SDL_Color yellow = {0xFF, 0xCC, 0x00};
+  SDL_Color white = {0xFF, 0xFF, 0xFF};
   renderTextbox("GAME OVER !!!", bX, 120, yellow, fontHeader_);
-
+  renderTextbox("Your score is: ", bX + 160, 200, white, font_);
+  renderTextbox(std::to_string(score_), bX + 160, 250, white, fontHeader_);
+  renderTextbox("Press [p] to play again.", bX, 380, white, font_);
   renderer.RenderFrameEnd();
 }
 

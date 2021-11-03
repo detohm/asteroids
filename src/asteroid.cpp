@@ -13,10 +13,27 @@ Asteroid::Asteroid(std::size_t screenWidth, std::size_t screenHeight, double x,
   RotationSpeed = 3;
   std::random_device device;
   std::mt19937 generator(device());
-
+  std::uniform_real_distribution<double> distRadian(-2.0 * M_PI, 2.0 * M_PI);
   std::uniform_real_distribution<double> distRotationSpeed(-5.0, 5.0);
-  std::uniform_real_distribution<double> distSpeed(20, 40);
-  Radian = 0;
+
+  int minSpeed, maxSpeed = 0;
+  switch (size) {
+    case Asteroid::AsteroidSize::Large:
+      minSpeed = 20;
+      maxSpeed = 40;
+      break;
+    case Asteroid::AsteroidSize::Medium:
+      minSpeed = 20;
+      maxSpeed = 60;
+      break;
+    case Asteroid::AsteroidSize::Small:
+      minSpeed = 20;
+      maxSpeed = 80;
+      break;
+  }
+
+  std::uniform_real_distribution<double> distSpeed(minSpeed, maxSpeed);
+  Radian = distRadian(generator);
   RotationSpeed = distRotationSpeed(generator);
   double initSpeed = distSpeed(generator);
   DX = cos(Radian) * initSpeed;

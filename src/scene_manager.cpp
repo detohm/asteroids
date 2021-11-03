@@ -26,7 +26,6 @@ SceneManager::SceneManager(std::size_t width, std::size_t height,
 }
 
 void SceneManager::Change(Scene* scene) {
-  std::cout << "scene change\n";
   if (!scenes_.empty()) {
     scenes_.top()->CleanUp();
     // delete scenes_.top();
@@ -34,15 +33,13 @@ void SceneManager::Change(Scene* scene) {
   }
 
   scenes_.push(scene);
-  scenes_.top()->Init();
+  scene->Init();
 }
 void SceneManager::Push(Scene* scene) {
-  std::cout << "scene push\n";
   scenes_.push(scene);
-  scenes_.top()->Init();
+  scene->Init();
 }
 void SceneManager::Pop() {
-  std::cout << "scene pop\n";
   if (!scenes_.empty()) {
     scenes_.top()->CleanUp();
     delete scenes_.top();
@@ -53,7 +50,6 @@ void SceneManager::Pop() {
 bool SceneManager::IsRunning() { return isRunning_; }
 void SceneManager::SceneQuit() { isRunning_ = false; }
 void SceneManager::Terminate() {
-  std::cout << "scene terminate: " << scenes_.size() << "\n";
   while (!scenes_.empty()) {
     scenes_.top()->CleanUp();
     delete scenes_.top();
@@ -65,7 +61,6 @@ void SceneManager::Terminate() {
 
 // run main game loop
 void SceneManager::Run() {
-  std::cout << "scene run\n";
   Uint32 currentTime = SDL_GetTicks();
   Uint32 accumulator = 0;
 
@@ -94,7 +89,8 @@ void SceneManager::Run() {
     // monitor fps
     frameCount++;
     if (newTime - frameRateTimestamp >= 1000) {
-      renderer_.UpdateWindowTitle("FPS: " + std::to_string(frameCount));
+      renderer_.UpdateWindowTitle("Asteroids - FPS: " +
+                                  std::to_string(frameCount));
       frameCount = 0;
       frameRateTimestamp = newTime;
     }

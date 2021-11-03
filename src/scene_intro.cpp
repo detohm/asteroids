@@ -32,8 +32,7 @@ void IntroScene::Init() {
   initAsteroids();
 }
 
-void IntroScene::CleanUp() { /*TTF_CloseFont(font_);*/
-}
+void IntroScene::CleanUp() {}
 
 void IntroScene::HandleInputs() {
   SDL_Event e;
@@ -72,9 +71,10 @@ void IntroScene::Render() {
   int bX = 115;
 
   renderTextbox("Asteroids", bX, 120, yellow, fontHeader_);
-  renderTextbox("Use arrow keys to navigate the ship", bX, 200, white, font_);
-  renderTextbox("Use [space] to fire !!", bX, 220, white, font_);
-  renderTextbox("Press [Space] to start !!!", bX, 260, white, font_);
+  renderTextbox("Use [left, right, up] for navigating the spaceship", bX, 200,
+                white, font_);
+  renderTextbox("Use [space] to fire", bX, 220, white, font_);
+  renderTextbox("Press [space] to start !!!", bX, 280, white, font_);
 
   renderer.RenderFrameEnd();
 }
@@ -105,6 +105,7 @@ void IntroScene::initAsteroids() {
 
     ax = distW(generator);
     ay = distH(generator);
+
     if (i < 7) {
       asteroid_.emplace_back(Asteroid(manager_.Width(), manager_.Height(), ax,
                                       ay, Asteroid::AsteroidSize::Small));

@@ -5,7 +5,7 @@
 #include "scene.h"
 class GameOverScene : public Scene {
  public:
-  static GameOverScene* Instance(SceneManager& manager);
+  static GameOverScene* Instance(SceneManager& manager, int score);
   void Init();
   void CleanUp();
 
@@ -18,6 +18,7 @@ class GameOverScene : public Scene {
 
  private:
   static GameOverScene* gameOverScene_;
+  int score_;
 
   TTF_Font* font_;
   TTF_Font* fontHeader_;

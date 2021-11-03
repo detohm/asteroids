@@ -32,12 +32,13 @@ class Game : public Scene {
   Spaceship ship_;
   std::vector<Asteroid> asteroid_;  // TODO - refactor to use pool
   void handleInput(bool& running, Spaceship& ship);
-  void initAsteroids();
+  void initAsteroids(int totalAsteroids);
   void detectCollision();
   void splitAsteroids(Asteroid atr);
 
   int lifePoint_;
   int score_;
+  int level_;
 
   // UI
   HUD hud_;
