@@ -21,11 +21,18 @@ Main components
 - **Renderer** (`renderer.h`, `renderer.cpp`) : This is a wrapper class for SDL Renderer.
 - **GameObject** (`game_object.h`, `game_object.cpp`) : All the game object classes such as asteroids, spaceship, and bullets inherit this base class. It provides several base methods for collision detection and screen wrapping for the inherited game objects.
 - **Game** (`game.h`, `game.cpp`) : This is the gameplay scene. Most of the game logics are in here such as asteroids spawning, interaction between game objects, collision detection and its consequences, life points and score handling, HUD updating and etc. 
-- **Main** (`main.cpp`) : Starting point of the execution !!!
+- **Main** (`main.cpp`): Starting point of the execution !!!
 
 ## Project Rubrics
-TBD
-
+Please find the addressed rubric points below,
+- **The project demonstrates an understanding of C++ functions and control structures** : In [game.cpp](https://github.com/detohm/asteroids/blob/main/src/game.cpp), there are separated functions like `HandleInputs`,`Update`,`Render` to group the related logics together. This file also contains control usage of `switch-case`,`if-else`,`while`,`for`,`return`.
+- **The project reads data from a file and process the data** : In [scene_intro.cpp:L24](https://github.com/detohm/asteroids/blob/main/src/scene_intro.cpp#L24), it uses SDL_TTF library to load the font file.
+- **The project accepts user input and processes the input** : In [game.cpp L39](https://github.com/detohm/asteroids/blob/main/src/game.cpp#L39), this HandleInputs function demonstate input handling by detecting the event from SDL Poll Event and executing the expected behaviors.
+- **The project uses Object Oriented Programming techniques** : All of the files such `game.h`, `game.cpp`, `game_object.h`, `game_object.cpp` are contructed using OOP approach as Classes and its methods. Please find details in the 'main components' section above.
+- **Classes use appropriate access specifiers for class members** : The example is in [renderer.h](https://github.com/detohm/asteroids/blob/main/include/renderer.h). It demonstrates using of 'public' and 'private' class members.
+- **Class constructors utilize member initialization lists** : In [scene_manager.cpp L10](https://github.com/detohm/asteroids/blob/main/src/scene_manager.cpp#L10), there is usage of initialization list at the class contructor.
+- **Classes follow an appropriate inheritance hierarchy** : In [spaceship.h L9](https://github.com/detohm/asteroids/blob/main/include/spaceship.h#L9), the Spaceship class inherits GameObject class to obtain several base class members like object's position and rotation, object's speed. There are also useful base class methods like collision detection and screen wrapping.
+- **Derived class functions override virtual base class functions** : In [scene.h](https://github.com/detohm/asteroids/blob/main/include/scene.h), there are several pure virtual functions such as HandleInputs,Update,Render, and etc. These particular methods are required implementation in derived classes. you can find the example of derived class in [scene_intro.cpp](https://github.com/detohm/asteroids/blob/main/src/scene_intro.cpp), as you can see, all the virtual functions are implemented.
 # Project Dependencies
 You requires C++ compiler with C++17 standard capability to build this project. This project use make This project also uses `SDL2` and `SD2_TTF` as its dependencies.
 ## Linux
