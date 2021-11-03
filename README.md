@@ -1,7 +1,7 @@
 # Asteroids
 This project is a clone of the "Asteroids" game for educational purpose. It provides minimal gameplay.
 # Features
-This project have features below,
+This project provides the following features,
 - Player can use Up, Left, Right (arrow keys) to navigate the spaceship.
 - The asteroids will be spawn randomly.
 - Player can press Space to fire the bullet to hit the asteroids.
